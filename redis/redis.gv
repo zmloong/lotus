@@ -1,0 +1,99 @@
+digraph gocallvis {
+    label="";
+    labeljust="l";
+    fontname="Arial";
+    fontsize="14";
+    rankdir="LR";
+    bgcolor="lightgray";
+    style="solid";
+    penwidth="0.5";
+    pad="0.0";
+    nodesep="0.35";
+
+    node [shape="box" style="filled,rounded" fillcolor="honeydew" fontname="Verdana" penwidth="1.0" margin="0.05,0.0"];
+    edge [minlen="2"]
+
+    subgraph "cluster_focus" {
+        fontsize="18";
+bgcolor="#e6ecfa";
+label="redis";
+labelloc="t";
+labeljust="c";
+        
+        "(*lotus/redis.Redis).Encode" [ tooltip="(*lotus/redis.Redis).Encode | defined in redis.go:53\nat redis.go:58: calling [google.golang.org/protobuf/proto.Marshal]" fillcolor="lightblue" label="(*Redis).Encode" penwidth="1.5" ]
+        "(*lotus/redis.Redis).init" [ tooltip="(*lotus/redis.Redis).init | defined in redis.go:27\nat redis.go:29: calling [lotus/redis/single.NewSys]\nat redis.go:39: calling [lotus/redis/cluster.NewSys]" fillcolor="lightblue" label="(*Redis).init" penwidth="0.5" ]
+        "lotus/redis.newOptions" [ tooltip="lotus/redis.newOptions | defined in options.go:89\nat options.go:100: calling [github.com/zmloong/lotus/utils/mapstructure.Decode]" fillcolor="lightblue" label="newOptions" penwidth="0.5" ]
+        "(*lotus/redis.RedisMutex).Lock" [ fillcolor="lightblue" label="(*RedisMutex).Lock" penwidth="1.5" tooltip="(*lotus/redis.RedisMutex).Lock | defined in lock.go:26\nat lock.go:30: calling [(*lotus/redis.RedisMutex).Lock$1]" ]
+        "(*lotus/redis.RedisMutex).Lock$1" [ style="dotted,filled" tooltip="(*lotus/redis.RedisMutex).Lock$1 | defined in lock.go:30" fillcolor="lightblue" label="(*RedisMutex).Lock$1" ]
+        "(*lotus/redis.Redis).Decode" [ fillcolor="lightblue" label="(*Redis).Decode" penwidth="1.5" tooltip="(*lotus/redis.Redis).Decode | defined in redis.go:66\nat redis.go:71: calling [google.golang.org/protobuf/proto.Unmarshal]" ]
+        
+        subgraph "cluster_github.com/zmloong/lotus/utils/mapstructure" {
+        tooltip="package: github.com/zmloong/lotus/utils/mapstructure";
+penwidth="0.8";
+style="filled";
+fillcolor="lightyellow";
+rank="sink";
+label="mapstructure";
+fontsize="16";
+fontname="Tahoma bold";
+URL="/?f=github.com/zmloong/lotus/utils/mapstructure";
+        
+        "github.com/zmloong/lotus/utils/mapstructure.Decode" [ fillcolor="moccasin" label="Decode" penwidth="1.5" tooltip="github.com/zmloong/lotus/utils/mapstructure.Decode | defined in mapstructure.go:87" ]
+        
+    }
+
+        subgraph "cluster_google.golang.org/protobuf/proto" {
+        label="proto";
+URL="/?f=google.golang.org/protobuf/proto";
+tooltip="package: google.golang.org/protobuf/proto";
+penwidth="0.8";
+fontsize="16";
+fillcolor="lightyellow";
+rank="sink";
+style="filled";
+fontname="Tahoma bold";
+        
+        "google.golang.org/protobuf/proto.Marshal" [ label="Marshal" penwidth="1.5" tooltip="google.golang.org/protobuf/proto.Marshal | defined in encode.go:73" fillcolor="moccasin" ]
+        "google.golang.org/protobuf/proto.Unmarshal" [ fillcolor="moccasin" label="Unmarshal" penwidth="1.5" tooltip="google.golang.org/protobuf/proto.Unmarshal | defined in decode.go:49" ]
+        
+    }
+
+        subgraph "cluster_lotus/redis/cluster" {
+        label="cluster";
+tooltip="package: lotus/redis/cluster";
+penwidth="0.8";
+fontname="Tahoma bold";
+rank="sink";
+URL="/?f=lotus/redis/cluster";
+fontsize="16";
+style="filled";
+fillcolor="lightyellow";
+        
+        "lotus/redis/cluster.NewSys" [ fillcolor="moccasin" label="NewSys" penwidth="1.5" tooltip="lotus/redis/cluster.NewSys | defined in core.go:10" ]
+        
+    }
+
+        subgraph "cluster_lotus/redis/single" {
+        fontsize="16";
+tooltip="package: lotus/redis/single";
+penwidth="0.8";
+style="filled";
+fillcolor="lightyellow";
+fontname="Tahoma bold";
+rank="sink";
+label="single";
+URL="/?f=lotus/redis/single";
+        
+        "lotus/redis/single.NewSys" [ tooltip="lotus/redis/single.NewSys | defined in core.go:17" fillcolor="moccasin" label="NewSys" penwidth="1.5" ]
+        
+    }
+
+    }
+
+    "lotus/redis.newOptions" -> "github.com/zmloong/lotus/utils/mapstructure.Decode" [ color="saddlebrown" tooltip="at options.go:100: calling [github.com/zmloong/lotus/utils/mapstructure.Decode]" ]
+    "(*lotus/redis.RedisMutex).Lock" -> "(*lotus/redis.RedisMutex).Lock$1" [ arrowhead="normalnoneodot" tooltip="at lock.go:30: calling [(*lotus/redis.RedisMutex).Lock$1]" ]
+    "(*lotus/redis.Redis).Decode" -> "google.golang.org/protobuf/proto.Unmarshal" [ color="saddlebrown" tooltip="at redis.go:71: calling [google.golang.org/protobuf/proto.Unmarshal]" ]
+    "(*lotus/redis.Redis).Encode" -> "google.golang.org/protobuf/proto.Marshal" [ tooltip="at redis.go:58: calling [google.golang.org/protobuf/proto.Marshal]" color="saddlebrown" ]
+    "(*lotus/redis.Redis).init" -> "lotus/redis/single.NewSys" [ color="saddlebrown" tooltip="at redis.go:29: calling [lotus/redis/single.NewSys]" ]
+    "(*lotus/redis.Redis).init" -> "lotus/redis/cluster.NewSys" [ tooltip="at redis.go:39: calling [lotus/redis/cluster.NewSys]" color="saddlebrown" ]
+}
