@@ -4,10 +4,11 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"lotus/redis/cluster"
-	"lotus/redis/single"
 	"reflect"
 	"time"
+
+	"github.com/zmloong/lotus/sys/redis/cluster"
+	"github.com/zmloong/lotus/sys/redis/single"
 
 	"github.com/go-redis/redis/v8"
 	"google.golang.org/protobuf/proto"
