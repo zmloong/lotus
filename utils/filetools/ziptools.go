@@ -1,4 +1,4 @@
-package flietools
+package filetools
 
 import (
 	"archive/zip"

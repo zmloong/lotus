@@ -1,4 +1,5 @@
-package flietools
+// flietools
+package filetools
 
 import (
 	"bufio"

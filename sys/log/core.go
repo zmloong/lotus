@@ -5,7 +5,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/zmloong/lotus/utils/flietools"
+	"github.com/zmloong/lotus/utils/filetools"
 )
 
 type (
@@ -61,7 +61,7 @@ func Fatalf(format string, a ...interface{}) { defsys.Fatalf(format, a...) }
 // 创建日志文件
 func createlogfile(logpath string) error {
 	logdir := string(logpath[0:strings.LastIndex(logpath, "/")])
-	if !flietools.IsExist(logdir) {
+	if !filetools.IsExist(logdir) {
 		err := os.MkdirAll(logdir, os.ModePerm)
 		if err != nil {
 			return fmt.Errorf("创建日志路径失败 1" + err.Error())
