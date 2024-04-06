@@ -36,12 +36,12 @@ var (
 	defsys ILog
 )
 
-func OnInit(config map[string]interface{}, option ...Option) (err error) {
+func OnInit(config map[string]interface{}, option ...Optionfn) (err error) {
 	defsys, err = newSys(newOptions(config, option...))
 	return
 }
-func NewSys(option ...Option) (sys ILog, err error) {
-	sys, err = newSys(newOptionsByOption(option...))
+func NewSys(option ...Optionfn) (sys ILog, err error) {
+	sys, err = newSys(newOptionsByOptionFn(option...))
 	return
 }
 
