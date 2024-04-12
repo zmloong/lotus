@@ -16,7 +16,7 @@ type Option struct {
 }
 type Optionfn func(*Option)
 
-func SetServerip(v string) Optionfn {
+func SetServerIp(v string) Optionfn {
 	return func(o *Option) {
 		o.serverip = v
 	}
