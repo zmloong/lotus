@@ -10,12 +10,12 @@ type DefMqttDoor struct{}
 
 // 连接的回掉函数
 func (z *DefMqttDoor) ConnectHandler(client mqtt.Client) {
-	fmt.Printf("ConnectHandler: succ \n")
+	fmt.Printf("ConnectHandler: success \n")
 }
 
 // 丢失连接的回掉函数
 func (z *DefMqttDoor) ConnectLostHandler(client mqtt.Client, err error) {
-	fmt.Printf("ConnectLostHandler: succ \n")
+	fmt.Printf("ConnectLostHandler: success \n")
 }
 
 // 创建全局  mqtt 消息处理 handler
