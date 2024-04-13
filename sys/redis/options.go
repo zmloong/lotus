@@ -139,7 +139,6 @@ func SetDelay(v time.Duration) RMutexOptionfn {
 	}
 }
 
-// 赋默认值
 func newRMutexOptions(optfns ...RMutexOptionfn) RMutexOption {
 	option := RMutexOption{
 		expiry: 5,

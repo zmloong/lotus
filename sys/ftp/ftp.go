@@ -23,11 +23,11 @@ func (z *Ftp) init() (err error) {
 	var (
 		conn *ftp.ServerConn
 	)
-	if conn, err = ftp.Dial(fmt.Sprintf("%s:%d", z.options.serverip, z.options.port), ftp.DialWithTimeout(time.Duration(z.options.timeout)*time.Second)); err != nil {
+	if conn, err = ftp.Dial(fmt.Sprintf("%s:%d", z.options.ServerIp, z.options.Port), ftp.DialWithTimeout(time.Duration(z.options.TimeOut)*time.Second)); err != nil {
 		err = fmt.Errorf("ftp.Dial err:%v", err)
 		return
 	}
-	if err = conn.Login(z.options.username, z.options.password); err != nil {
+	if err = conn.Login(z.options.UserName, z.options.PassWord); err != nil {
 		err = fmt.Errorf("ftp.Login err:%v", err)
 	}
 	z.client = conn

@@ -5,62 +5,62 @@ import (
 )
 
 type Option struct {
-	serverip     string // 访问ip地址
-	port         int32  // 访问端口
-	username     string // 登录用户名
-	password     string // 登录密码
-	directory    string // 访问目录
-	timeout      int    // 超时时间 默认5s
-	interval     string // 采集间隔时间
-	regularrules string // 文件过滤正则规则
+	ServerIp     string // 访问ip地址
+	Port         int32  // 访问端口
+	UserName     string // 登录用户名
+	PassWord     string // 登录密码
+	Directory    string // 访问目录
+	TimeOut      int    // 超时时间 默认5s
+	Interval     string // 采集间隔时间
+	RegularRules string // 文件过滤正则规则
 }
 type Optionfn func(*Option)
 
 func SetServerIp(v string) Optionfn {
 	return func(o *Option) {
-		o.serverip = v
+		o.ServerIp = v
 	}
 }
 func SetPort(v int32) Optionfn {
 	return func(o *Option) {
-		o.port = v
+		o.Port = v
 	}
 }
 func SetUsername(v string) Optionfn {
 	return func(o *Option) {
-		o.username = v
+		o.UserName = v
 	}
 }
 func SetPassword(v string) Optionfn {
 	return func(o *Option) {
-		o.password = v
+		o.PassWord = v
 	}
 }
 func SetDirectory(v string) Optionfn {
 	return func(o *Option) {
-		o.directory = v
+		o.Directory = v
 	}
 }
 func SetTimeout(v int) Optionfn {
 	return func(o *Option) {
-		o.timeout = v
+		o.TimeOut = v
 	}
 }
 func SetInterval(v string) Optionfn {
 	return func(o *Option) {
-		o.interval = v
+		o.Interval = v
 	}
 }
 func SetRegularrules(v string) Optionfn {
 	return func(o *Option) {
-		o.regularrules = v
+		o.RegularRules = v
 	}
 }
 
 func newOptions(config map[string]interface{}, optfns ...Optionfn) Option {
 	option := Option{
-		port:    21,
-		timeout: 5,
+		Port:    21,
+		TimeOut: 5,
 	}
 	if config != nil {
 		mapstructure.Decode(config, &option)
@@ -72,8 +72,8 @@ func newOptions(config map[string]interface{}, optfns ...Optionfn) Option {
 }
 func newOptionsByOptionFn(optfns ...Optionfn) Option {
 	option := Option{
-		port:    21,
-		timeout: 5,
+		Port:    21,
+		TimeOut: 5,
 	}
 	for _, o := range optfns {
 		o(&option)
