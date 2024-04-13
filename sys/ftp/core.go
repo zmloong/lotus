@@ -8,6 +8,12 @@ import (
 )
 
 type (
+	FileEntry struct {
+		FileName string
+		FileSize uint64
+		ModTime  int64
+		IsDir    bool
+	}
 	IFtp interface {
 		Append(path string, r io.Reader) (err error)
 		ChangeDir(path string) (err error)
@@ -30,9 +36,9 @@ type (
 		Walk(root string) *ftp.Walker
 		CurrentDir() (str string, err error)
 		FileSize(path string) (size int64, err error)
-		GetEntry(path string) (entry *ftp.Entry, err error)
+		GetEntry(path string) (file *FileEntry, err error)
 		GetTime(path string) (t time.Time, err error)
-		List(path string) (entries []*ftp.Entry, err error)
+		List(path string) (files []*FileEntry, err error)
 		NameList(path string) (entries []string, err error)
 		Retr(path string) (frs *ftp.Response, err error)
 		RetrFrom(path string, offset uint64) (frs *ftp.Response, err error)
@@ -115,7 +121,7 @@ func FileSize(path string) (size int64, err error) {
 	size, err = defsys.FileSize(path)
 	return
 }
-func GetEntry(path string) (entry *ftp.Entry, err error) {
+func GetEntry(path string) (entry *FileEntry, err error) {
 	entry, err = defsys.GetEntry(path)
 	return
 }
@@ -123,7 +129,7 @@ func GetTime(path string) (t time.Time, err error) {
 	t, err = defsys.GetTime(path)
 	return
 }
-func List(path string) (entries []*ftp.Entry, err error) {
+func List(path string) (entries []*FileEntry, err error) {
 	entries, err = defsys.List(path)
 	return
 }

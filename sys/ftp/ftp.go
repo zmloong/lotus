@@ -116,16 +116,44 @@ func (z *Ftp) FileSize(path string) (size int64, err error) {
 	size, err = z.client.FileSize(path)
 	return
 }
-func (z *Ftp) GetEntry(path string) (entry *ftp.Entry, err error) {
+func (z *Ftp) GetEntry(path string) (file *FileEntry, err error) {
+	var (
+		entry *ftp.Entry
+	)
 	entry, err = z.client.GetEntry(path)
+	file = &FileEntry{
+		FileName: entry.Name,
+		FileSize: entry.Size,
+		ModTime:  entry.Time.Unix(),
+		IsDir:    false,
+	}
+	if entry.Type == ftp.EntryTypeFolder {
+		file.IsDir = true
+	}
 	return
 }
 func (z *Ftp) GetTime(path string) (t time.Time, err error) {
 	t, err = z.client.GetTime(path)
 	return
 }
-func (z *Ftp) List(path string) (entries []*ftp.Entry, err error) {
-	entries, err = z.client.List(path)
+func (z *Ftp) List(path string) (files []*FileEntry, err error) {
+	var (
+		entries []*ftp.Entry
+	)
+	if entries, err = z.client.List(path); err == nil {
+		files = make([]*FileEntry, len(entries))
+		for i, v := range entries {
+			files[i] = &FileEntry{
+				FileName: v.Name,
+				FileSize: v.Size,
+				ModTime:  v.Time.Unix(),
+				IsDir:    false,
+			}
+			if v.Type == ftp.EntryTypeFolder {
+				files[i].IsDir = true
+			}
+		}
+	}
 	return
 }
 func (z *Ftp) NameList(path string) (entries []string, err error) {
