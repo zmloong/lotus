@@ -3,6 +3,7 @@ package mqtt
 import (
 	"time"
 
+	"github.com/zmloong/lotus/utils/box"
 	"github.com/zmloong/lotus/utils/mapstructure"
 )
 
@@ -65,7 +66,7 @@ func newOptions(config map[string]interface{}, optfns ...Optionfn) Options {
 }
 func newOptionsByOptionFn(optfns ...Optionfn) Options {
 	options := Options{
-		ClientID: "lotus_mqtt_id" + time.Now().Format("2006-01-02-15:04:05"),
+		ClientID: "lotus_mqtt_" + box.LotusUid(),
 		MqttDoor: new(DefMqttDoor),
 	}
 
