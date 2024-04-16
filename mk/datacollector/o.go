@@ -1,4 +1,4 @@
-package mk
+package datacollector
 
 import (
 	"sync"

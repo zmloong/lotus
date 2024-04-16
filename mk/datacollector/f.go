@@ -1,4 +1,4 @@
-package mk
+package datacollector
 
 import (
 	"fmt"
@@ -169,7 +169,7 @@ func (p *Parser) Close() error {
 func (p *Parser) Parse(bucket string) {
 	log.Println("Reader>>>Parse")
 	time.Sleep(time.Second)
-	p.runner.GettransformsPope() <- bucket
+	p.runner.GettransformsPope() <- bucket + ">>>Parse"
 	log.Println("Parse>>>")
 }
 
@@ -202,7 +202,7 @@ func (t *Transforms) Close() error {
 func (t *Transforms) Trans(bucket string) {
 	log.Println("Parse>>>Trans")
 	time.Sleep(time.Second)
-	t.runner.GetsendersPope() <- bucket
+	t.runner.GetsendersPope() <- bucket + ">>>Trans"
 	log.Println("Trans>>>")
 }
 
