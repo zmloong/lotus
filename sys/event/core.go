@@ -3,20 +3,20 @@ package event
 import (
 	"reflect"
 
-	"github.com/zmloong/lotus/core"
 	"github.com/zmloong/lotus/sys/log"
 )
 
+type Event_Key string //事件Key
 type (
 	FunctionInfo struct {
 		Function  reflect.Value
 		Goroutine bool
 	}
 	IEventSys interface {
-		Register(eId core.Event_Key, f interface{}) (err error)
-		RegisterGO(eId core.Event_Key, f interface{}) (err error)
-		RemoveEvent(eId core.Event_Key, f interface{}) (err error)
-		TriggerEvent(eId core.Event_Key, agr ...interface{})
+		Register(eId Event_Key, f interface{}) (err error)
+		RegisterGO(eId Event_Key, f interface{}) (err error)
+		RemoveEvent(eId Event_Key, f interface{}) (err error)
+		TriggerEvent(eId Event_Key, agr ...interface{})
 	}
 )
 
@@ -34,19 +34,19 @@ func NewSys(option ...Option) (err error) {
 	return
 }
 
-func Register(eId core.Event_Key, f interface{}) (err error) {
+func Register(eId Event_Key, f interface{}) (err error) {
 	return defsys.Register(eId, f)
 }
 
-func RegisterGO(eId core.Event_Key, f interface{}) (err error) {
+func RegisterGO(eId Event_Key, f interface{}) (err error) {
 	return defsys.Register(eId, f)
 }
 
-func RemoveEvent(eId core.Event_Key, f interface{}) (err error) {
+func RemoveEvent(eId Event_Key, f interface{}) (err error) {
 	return defsys.RemoveEvent(eId, f)
 }
 
-func TriggerEvent(eId core.Event_Key, agr ...interface{}) {
+func TriggerEvent(eId Event_Key, agr ...interface{}) {
 	if defsys != nil {
 		defsys.TriggerEvent(eId, agr...)
 	} else {

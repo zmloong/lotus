@@ -5,21 +5,20 @@ import (
 	"reflect"
 
 	"github.com/zmloong/lotus"
-	"github.com/zmloong/lotus/core"
 )
 
 func newSys(options Options) (sys *EventSys, err error) {
 	sys = &EventSys{
-		functions: make(map[core.Event_Key][]*FunctionInfo),
+		functions: make(map[Event_Key][]*FunctionInfo),
 	}
 	return
 }
 
 type EventSys struct {
-	functions map[core.Event_Key][]*FunctionInfo
+	functions map[Event_Key][]*FunctionInfo
 }
 
-func (this *EventSys) checkIsRegister(eId core.Event_Key, f interface{}) bool {
+func (this *EventSys) checkIsRegister(eId Event_Key, f interface{}) bool {
 	if _, ok := this.functions[eId]; !ok {
 		return false
 	}
@@ -30,7 +29,7 @@ func (this *EventSys) checkIsRegister(eId core.Event_Key, f interface{}) bool {
 	}
 	return false
 }
-func (this *EventSys) Register(eId core.Event_Key, f interface{}) (err error) {
+func (this *EventSys) Register(eId Event_Key, f interface{}) (err error) {
 	if _, ok := this.functions[eId]; !ok {
 		this.functions[eId] = []*FunctionInfo{}
 	}
@@ -43,7 +42,7 @@ func (this *EventSys) Register(eId core.Event_Key, f interface{}) (err error) {
 	})
 	return
 }
-func (this *EventSys) RegisterGO(eId core.Event_Key, f interface{}) (err error) {
+func (this *EventSys) RegisterGO(eId Event_Key, f interface{}) (err error) {
 	if _, ok := this.functions[eId]; !ok {
 		this.functions[eId] = []*FunctionInfo{}
 	}
@@ -58,7 +57,7 @@ func (this *EventSys) RegisterGO(eId core.Event_Key, f interface{}) (err error) 
 }
 
 // 移除事件
-func (this *EventSys) RemoveEvent(eId core.Event_Key, f interface{}) (err error) {
+func (this *EventSys) RemoveEvent(eId Event_Key, f interface{}) (err error) {
 	for i, v := range this.functions[eId] {
 		if v.Function == reflect.ValueOf(f) {
 			this.functions[eId] = append(this.functions[eId][0:i], this.functions[eId][i+1:]...)
@@ -69,7 +68,7 @@ func (this *EventSys) RemoveEvent(eId core.Event_Key, f interface{}) (err error)
 }
 
 // 触发
-func (this *EventSys) TriggerEvent(eId core.Event_Key, agr ...interface{}) {
+func (this *EventSys) TriggerEvent(eId Event_Key, agr ...interface{}) {
 	defer lotus.Recover(fmt.Sprintf("event TriggerEvent:%s", eId))
 	if v, ok := this.functions[eId]; ok {
 		for _, f := range v {
