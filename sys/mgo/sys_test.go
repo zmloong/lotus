@@ -130,7 +130,7 @@ func Test_CreateIndex(t *testing.T) {
 
 // 创建复合索引
 func Test_CreateCompoundIndex(t *testing.T) {
-	sys, err := mgo.NewSys(mgo.SetMongodbUrl("mongodb://47.90.84.157:9094"), mgo.SetMongodbDatabase("lego_yl"))
+	sys, err := mgo.NewSys(mgo.SetMongodbUrl("mongodb://47.90.84.157:9094"), mgo.SetMongodbDatabase("lotus_yl"))
 	if err != nil {
 		fmt.Printf("start sys Fail err:%v", err)
 		return
