@@ -5,10 +5,10 @@ import (
 	"reflect"
 	"time"
 
-	lgcore "github.com/liwei1dao/lego/core"
-	"github.com/liwei1dao/lego/sys/rpc/conn"
-	"github.com/liwei1dao/lego/sys/rpc/core"
-	"github.com/liwei1dao/lego/sys/rpc/serialize"
+	lgcore "github.com/zmloong/lotus/core"
+	"github.com/zmloong/lotus/sys/rpc/conn"
+	"github.com/zmloong/lotus/sys/rpc/core"
+	"github.com/zmloong/lotus/sys/rpc/serialize"
 )
 
 func newSys(options Options) (sys *RPC, err error) {

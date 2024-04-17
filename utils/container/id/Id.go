@@ -1,10 +1,12 @@
-package box
+package id
 
 import (
 	"fmt"
 	"os"
 	"strings"
 	"time"
+
+	"github.com/rs/xid"
 )
 
 var lastTimestamp int64 = time.Now().Unix()
@@ -56,4 +58,10 @@ func getPidBytes() []byte {
 	bytes[0] = byte(pid >> 8)
 	bytes[1] = byte(pid)
 	return bytes
+}
+
+// xid
+func NewXId() string {
+	id := xid.New()
+	return id.String()
 }

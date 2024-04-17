@@ -5,10 +5,10 @@ import (
 	"time"
 
 	"github.com/golang/protobuf/proto"
-	"github.com/liwei1dao/lego"
-	"github.com/liwei1dao/lego/sys/log"
-	"github.com/liwei1dao/lego/sys/rpc/core"
 	"github.com/nats-io/nats.go"
+	"github.com/zmloong/lotus"
+	"github.com/zmloong/lotus/sys/log"
+	"github.com/zmloong/lotus/sys/rpc/core"
 )
 
 func NewNatsService(natsaddr string, rpcId string) (natsService *NatsService, err error) {
@@ -55,7 +55,7 @@ func (this *NatsService) Stop() (err error) {
 	return
 }
 func (this *NatsService) on_request_handle() {
-	defer lego.Recover("RPC NatsService")
+	defer lotus.Recover("RPC NatsService")
 locp:
 	for {
 		m, err := this.subs.NextMsg(time.Minute)

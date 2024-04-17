@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/liwei1dao/lego/sys/workerpools"
+	"github.com/zmloong/lotus/sys/workerpools"
 )
 
 func Test_workerpools(t *testing.T) {

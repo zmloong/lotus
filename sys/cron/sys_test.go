@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/liwei1dao/lego/sys/cron"
+	"github.com/zmloong/lotus/sys/cron"
 )
 
 // 1. cron表达式格式：

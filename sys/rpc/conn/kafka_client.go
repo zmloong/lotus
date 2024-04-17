@@ -3,13 +3,14 @@ package conn
 import (
 	"fmt"
 
-	"github.com/Shopify/sarama"
+	"github.com/IBM/sarama"
 	"github.com/golang/protobuf/proto"
-	"github.com/liwei1dao/lego"
-	"github.com/liwei1dao/lego/sys/kafka"
-	"github.com/liwei1dao/lego/sys/log"
-	"github.com/liwei1dao/lego/sys/rpc/core"
-	"github.com/liwei1dao/lego/utils/container"
+	"github.com/zmloong/lotus"
+
+	"github.com/zmloong/lotus/sys/kafka"
+	"github.com/zmloong/lotus/sys/log"
+	"github.com/zmloong/lotus/sys/rpc/core"
+	"github.com/zmloong/lotus/utils/container"
 )
 
 func NewKafkaClient(serviceId string, kafkaversion string, kafkahost []string, pushrpcId, receiveId string) (kafkaClient *KafkaClient, err error) {
@@ -68,7 +69,8 @@ func (this *KafkaClient) Delete(key string) (err error) {
 	return
 }
 
-/**
+/*
+*
 消息请求
 */
 func (this *KafkaClient) Call(callInfo core.CallInfo, callback chan core.ResultInfo) (err error) {
@@ -98,11 +100,12 @@ func (this *KafkaClient) Call(callInfo core.CallInfo, callback chan core.ResultI
 	return
 }
 
-/**
+/*
+*
 消息请求 不需要回复
 */
 func (this *KafkaClient) CallNR(callInfo core.CallInfo) (err error) {
-	defer lego.Recover("RPC KafkaClient")
+	defer lotus.Recover("RPC KafkaClient")
 	var (
 		body []byte
 	)
@@ -118,7 +121,7 @@ func (this *KafkaClient) CallNR(callInfo core.CallInfo) (err error) {
 }
 
 func (this *KafkaClient) on_request_handle() {
-	defer lego.Recover("RPC KafkaClient")
+	defer lotus.Recover("RPC KafkaClient")
 	for v := range this.kafka.Consumer_Messages() {
 		// log.Debugf("RPC KafkaClient Receive: %+v", v)
 		resultInfo, err := this.UnmarshalResult(v.Value)

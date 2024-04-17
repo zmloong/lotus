@@ -1,7 +1,7 @@
 package rpc
 
 import (
-	"github.com/liwei1dao/lego/utils/mapstructure"
+	"github.com/zmloong/lotus/utils/mapstructure"
 )
 
 type Option func(*Options)

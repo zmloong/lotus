@@ -3,12 +3,12 @@ package conn
 import (
 	"fmt"
 
-	"github.com/Shopify/sarama"
+	"github.com/IBM/sarama"
 	"github.com/golang/protobuf/proto"
-	"github.com/liwei1dao/lego"
-	"github.com/liwei1dao/lego/sys/kafka"
-	"github.com/liwei1dao/lego/sys/log"
-	"github.com/liwei1dao/lego/sys/rpc/core"
+	"github.com/zmloong/lotus"
+	"github.com/zmloong/lotus/sys/kafka"
+	"github.com/zmloong/lotus/sys/log"
+	"github.com/zmloong/lotus/sys/rpc/core"
 )
 
 func NewKafkaService(serviceId string, kafkaversion string, kafkahost []string, rpcId string) (kafkaService *KafkaService, err error) {
@@ -49,7 +49,7 @@ func (this *KafkaService) Stop() (err error) {
 }
 
 func (this *KafkaService) Callback(callinfo core.CallInfo) error {
-	defer lego.Recover("RPC KafkaService")
+	defer lotus.Recover("RPC KafkaService")
 	body, _ := this.MarshalResult(callinfo.Result)
 	reply_to := callinfo.Props["reply_to"].(string)
 	// log.Debugf("RPC KafkaService Callback reply_to:%v", reply_to)
@@ -61,7 +61,7 @@ func (this *KafkaService) Callback(callinfo core.CallInfo) error {
 }
 
 func (this *KafkaService) on_request_handle() {
-	defer lego.Recover("RPC KafkaService")
+	defer lotus.Recover("RPC KafkaService")
 	for v := range this.kafka.Consumer_Messages() {
 		// log.Debugf("RPC KafkaService Receive: %+v", v)
 		rpcInfo, err := this.Unmarshal(v.Value)

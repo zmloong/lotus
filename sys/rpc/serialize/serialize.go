@@ -8,8 +8,8 @@ import (
 	"reflect"
 
 	"github.com/golang/protobuf/proto"
-	"github.com/liwei1dao/lego/core"
-	"github.com/liwei1dao/lego/sys/log"
+	"github.com/zmloong/lotus/core"
+	"github.com/zmloong/lotus/sys/log"
 )
 
 type SerializeData struct {
@@ -89,7 +89,7 @@ func OnRegisterRpcData(d interface{}, sf func(d interface{}) ([]byte, error), un
 	}
 }
 
-//注册Proto Or Json 数据结构到RPC
+// 注册Proto Or Json 数据结构到RPC
 func OnRegisterProtoData(d interface{}) (err error) {
 	if _, ok := d.(proto.Message); ok {
 		OnRegisterRpcData(d, protoStructMarshal, protoStructUnmarshal)
@@ -122,7 +122,7 @@ func UnSerialize(dtype string, d []byte) (interface{}, error) {
 	return nil, fmt.Errorf("没有注册序列化数据结构 dtype = %s", dtype)
 }
 
-//----------------------------------------------内置序列化--------------------------------------------------------------
+// ----------------------------------------------内置序列化--------------------------------------------------------------
 func nullToBytes(v interface{}) ([]byte, error) {
 	var buf = make([]byte, 0)
 	return buf, nil
@@ -292,7 +292,7 @@ func customRouteToBytes(v interface{}) ([]byte, error) {
 	return buf, nil
 }
 
-//反序列化--------------------------------------------------------------------------------------------------------------
+// 反序列化--------------------------------------------------------------------------------------------------------------
 func bytesToNull(dataType reflect.Type, buf []byte) (interface{}, error) {
 	return nil, nil
 }

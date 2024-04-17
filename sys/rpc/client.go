@@ -4,10 +4,10 @@ import (
 	fmt "fmt"
 	"time"
 
-	"github.com/liwei1dao/lego/sys/log"
-	"github.com/liwei1dao/lego/sys/rpc/core"
-	"github.com/liwei1dao/lego/sys/rpc/serialize"
-	"github.com/liwei1dao/lego/utils/container/id"
+	"github.com/zmloong/lotus/sys/log"
+	"github.com/zmloong/lotus/sys/rpc/core"
+	"github.com/zmloong/lotus/sys/rpc/serialize"
+	"github.com/zmloong/lotus/utils/container/id"
 	"google.golang.org/protobuf/proto"
 )
 
@@ -22,7 +22,8 @@ func (this *RPCClient) Stop() (err error) {
 	return
 }
 
-/**
+/*
+*
 消息请求 需要回复
 */
 func (this *RPCClient) Call(_func string, params ...interface{}) (interface{}, error) {
@@ -48,7 +49,8 @@ func (this *RPCClient) Call(_func string, params ...interface{}) (interface{}, e
 	}
 }
 
-/**
+/*
+*
 消息请求 不需要回复
 */
 func (this *RPCClient) CallNR(_func string, params ...interface{}) (err error) {

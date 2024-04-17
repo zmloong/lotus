@@ -5,11 +5,11 @@ import (
 	"time"
 
 	"github.com/golang/protobuf/proto"
-	"github.com/liwei1dao/lego"
-	"github.com/liwei1dao/lego/sys/log"
-	"github.com/liwei1dao/lego/sys/rpc/core"
-	"github.com/liwei1dao/lego/utils/container"
 	"github.com/nats-io/nats.go"
+	"github.com/zmloong/lotus"
+	"github.com/zmloong/lotus/sys/log"
+	"github.com/zmloong/lotus/sys/rpc/core"
+	"github.com/zmloong/lotus/utils/container"
 )
 
 func NewNatsClient(natsaddr string, pushrpcId, receiveId string) (natsClient *NatsClient, err error) {
@@ -68,7 +68,8 @@ func (this *NatsClient) Delete(key string) (err error) {
 	return
 }
 
-/**
+/*
+*
 消息请求
 */
 func (this *NatsClient) Call(callInfo core.CallInfo, callback chan core.ResultInfo) error {
@@ -92,7 +93,8 @@ func (this *NatsClient) Call(callInfo core.CallInfo, callback chan core.ResultIn
 	return this.conn.Publish(this.rpcId, body)
 }
 
-/**
+/*
+*
 消息请求 不需要回复
 */
 func (this *NatsClient) CallNR(callInfo core.CallInfo) error {
@@ -104,7 +106,7 @@ func (this *NatsClient) CallNR(callInfo core.CallInfo) error {
 }
 
 func (this *NatsClient) on_request_handle() {
-	defer lego.Recover("RPC NatsClient")
+	defer lotus.Recover("RPC NatsClient")
 locp:
 	for {
 		m, err := this.subs.NextMsg(time.Minute)

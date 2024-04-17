@@ -5,7 +5,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/liwei1dao/lego/utils/container"
+	"github.com/zmloong/lotus/utils/container"
 )
 
 func newSys(options Options) (sys *WorkerPool, err error) {

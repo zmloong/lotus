@@ -3,9 +3,9 @@ package rpc
 import (
 	"reflect"
 
-	lgcore "github.com/liwei1dao/lego/core"
-	"github.com/liwei1dao/lego/sys/rpc/core"
-	_ "github.com/liwei1dao/lego/sys/rpc/serialize"
+	lgcore "github.com/zmloong/lotus/core"
+	"github.com/zmloong/lotus/sys/rpc/core"
+	_ "github.com/zmloong/lotus/sys/rpc/serialize"
 )
 
 const (

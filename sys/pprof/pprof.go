@@ -7,7 +7,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/liwei1dao/lego/sys/log"
+	"github.com/zmloong/lotus/sys/log"
 
 	"github.com/wolfogre/go-pprof-practice/animal"
 )
