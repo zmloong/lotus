@@ -22,6 +22,7 @@ require (
 	github.com/hashicorp/consul/api v1.28.2
 	github.com/jlaffaye/ftp v0.2.0
 	github.com/jmoiron/sqlx v1.3.5
+	github.com/lib/pq v1.2.0
 	github.com/mitchellh/hashstructure v1.1.0
 	github.com/nacos-group/nacos-sdk-go v1.1.4
 	github.com/natefinch/lumberjack v2.0.0+incompatible

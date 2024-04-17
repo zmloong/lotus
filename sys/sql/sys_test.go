@@ -9,6 +9,7 @@ import (
 	_ "github.com/denisenkom/go-mssqldb" //sqlservice 驱动
 	_ "github.com/go-sql-driver/mysql"   //mysql 驱动
 	_ "github.com/godror/godror"         //oracle 驱动
+	_ "github.com/lib/pq"  //postgres 驱动
 	lgsql "github.com/zmloong/lotus/sys/sql"
 )
 
