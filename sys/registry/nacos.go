@@ -39,8 +39,6 @@ func newNacos(options Options) (sys *Nacos_Registry, err error) {
 		UpdateCacheWhenEmpty: true,
 		LogDir:               "nacos/log",
 		CacheDir:             "nacos/cache",
-		RotateTime:           "1h",
-		MaxAge:               3,
 		LogLevel:             "error",
 	}
 	// 至少一个ServerConfig

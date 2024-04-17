@@ -20,10 +20,10 @@ type ApiComp struct {
 func (this *ApiComp) Init(service core.IService, module core.IModule, comp core.IModuleComp, options core.IModuleOptions) (err error) {
 	err = this.ModuleCompBase.Init(service, module, comp, options)
 	this.module = module.(IConsole)
-	api := this.module.Group("/lego/api")
+	api := this.module.Group("/lotus/api")
 	api.POST("/sendemailcaptcha", this.SendEmailCaptchaReq)
 
-	console := this.module.Group("/lego/console")
+	console := this.module.Group("/lotus/console")
 	console.POST("/getprojectinfo", this.module.CheckToken, this.GetProjectInfo)
 	console.POST("/gethostinfo", this.module.CheckToken, this.GetHostInfo)
 	console.POST("/getcpuinfo", this.module.CheckToken, this.GetCpuInfo)
@@ -31,7 +31,7 @@ func (this *ApiComp) Init(service core.IService, module core.IModule, comp core.
 	console.POST("/gethostmonitordata", this.module.CheckToken, this.GetHostMonitorData)
 	console.POST("/getconsolecluster", this.module.CheckToken, this.GetClusterMonitorData)
 
-	user := this.module.Group("/lego/user")
+	user := this.module.Group("/lotus/user")
 	user.POST("/registerbycaptcha", this.RegisterByCaptchaReq)
 	user.POST("/loginbycaptcha", this.LoginByCaptchaReq)
 	user.POST("/loginbypassword", this.LoginByPasswordReq)

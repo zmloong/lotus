@@ -20,8 +20,6 @@ func newSys(options Options) (sys *Nacos, err error) {
 		NotLoadCacheAtStart: true,
 		LogDir:              "./nacos/log",
 		CacheDir:            "./nacos/cache",
-		RotateTime:          "1h",
-		MaxAge:              3,
 		LogLevel:            "debug",
 	}
 	// 至少一个ServerConfig
@@ -60,43 +58,43 @@ type Nacos struct {
 	configClient config_client.IConfigClient
 }
 
-///注册服务
+// /注册服务
 func (this *Nacos) Naming_RegisterInstance(service vo.RegisterInstanceParam) (success bool, err error) {
 	success, err = this.namingClient.RegisterInstance(service)
 	return
 }
 
-///注销服务
+// /注销服务
 func (this *Nacos) Naming_DeregisterInstance(service vo.DeregisterInstanceParam) (success bool, err error) {
 	success, err = this.namingClient.DeregisterInstance(service)
 	return
 }
 
-///获取服务
+// /获取服务
 func (this *Nacos) Naming_GetService(param vo.GetServiceParam) (services model.Service, err error) {
 	services, err = this.namingClient.GetService(param)
 	return
 }
 
-/// SelectAllInstance可以返回全部实例列表,包括healthy=false,enable=false,weight<=0
+// / SelectAllInstance可以返回全部实例列表,包括healthy=false,enable=false,weight<=0
 func (this *Nacos) Naming_SelectAllInstances(param vo.SelectAllInstancesParam) (instances []model.Instance, err error) {
 	instances, err = this.namingClient.SelectAllInstances(param)
 	return
 }
 
-///选中实例列表
+// /选中实例列表
 func (this *Nacos) Naming_SelectInstances(param vo.SelectInstancesParam) (instances []model.Instance, err error) {
 	instances, err = this.namingClient.SelectInstances(param)
 	return
 }
 
-/// SelectOneHealthyInstance将会按加权随机轮询的负载均衡策略返回一个健康的实例 实例必须满足的条件：health=true,enable=true and weight>0
+// / SelectOneHealthyInstance将会按加权随机轮询的负载均衡策略返回一个健康的实例 实例必须满足的条件：health=true,enable=true and weight>0
 func (this *Nacos) Naming_SelectOneHealthyInstance(param vo.SelectOneHealthInstanceParam) (instance *model.Instance, err error) {
 	instance, err = this.namingClient.SelectOneHealthyInstance(param)
 	return
 }
 
-/// Subscribe key=serviceName+groupName+cluster 注意:我们可以在相同的key添加多个SubscribeCallback.
+// / Subscribe key=serviceName+groupName+cluster 注意:我们可以在相同的key添加多个SubscribeCallback.
 func (this *Nacos) Naming_Subscribe(param *vo.SubscribeParam) (err error) {
 	err = this.namingClient.Subscribe(param)
 	return
