@@ -14,6 +14,7 @@ const (
 	MySql     SqlType = "mysql"
 	Oracle    SqlType = "godror"
 	DM        SqlType = "dm"
+	PG        SqlType = "postgres"
 )
 
 type Option func(*Options)

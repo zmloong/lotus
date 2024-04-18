@@ -96,3 +96,34 @@ func Test_DM(t *testing.T) {
 		fmt.Printf("初始化成功\n")
 	}
 }
+func Test_PG(t *testing.T) {
+	pdqlInfo := fmt.Sprintf("host=118.178.94.244 port=5432 user=postgres password=postgres dbname=postgres sslmode=disable")
+	err := lssql.OnInit(nil,
+		lssql.SetSqlType(lssql.PG),
+		lssql.SetSqlUrl(pdqlInfo),
+	)
+	if err != nil {
+		fmt.Printf("初始化失败=%v\n", err)
+	} else {
+		fmt.Printf("初始化成功\n")
+	}
+
+	if rows, err := lssql.Query(`select * from test`); err == nil {
+
+		for rows.Next() {
+			var (
+				id   string
+				user string
+				a    int
+				b    bool
+				c    string
+			)
+			err = rows.Scan(&id, &user, &a, &b, &c)
+			if err != nil {
+				fmt.Printf("rows err%v\n", err)
+			}
+			fmt.Printf("%v,%v,%v,%v,%v\n", id, user, a, b, c)
+		}
+
+	}
+}
